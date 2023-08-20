@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+        <!--=============== REMIX ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="assets/css/styles.css">
+
+        <title>INTELOG : Next-Gen Compliance Monitoring
+            With AI-Powered Log Analysis</title>
+    </head>
+
+    <style>
+        /*.card {
+          border-radius: 10px;
+          box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+          width: 600px;
+          height: 260px;
+          background-color: #535f6f;
+          padding: 10px 30px 40px;
+        }
+        
+        .card h3 {
+          font-size: 22px;
+          font-weight: 600;
+          
+        }
+        
+        .drop_box {
+          margin: 10px 0;
+          padding: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          border: 3px dotted #a3a3a3;
+          border-radius: 5px;
+        }
+        
+        .drop_box h4 {
+          font-size: 16px;
+          font-weight: 400;
+          color: #2e2e2e;
+        }
+        
+        .drop_box p {
+          margin-top: 10px;
+          margin-bottom: 20px;
+          font-size: 12px;
+          color: #a3a3a3;
+        }
+        
+        .btn {
+          text-decoration: none;
+          background-color: #0038f0;
+          color: #ffffff;
+          padding: 10px 20px;
+          border: none;
+          outline: none;
+          transition: 0.3s;
+        }
+        
+        .btn:hover{
+          text-decoration: none;
+          background-color: #ffffff;
+          color: #3f4857;
+          padding: 10px 20px;
+          border: none;
+          outline: 1px solid #010101;
+        }
+        .form input {
+          margin: 10px 0;
+          width: 100%;
+          background-color: #e2e2e2;
+          border: none;
+          outline: none;
+          padding: 12px 20px;
+          border-radius: 4px;
+        } */
+
+
+        /*.container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            @include align-items(center);
+            @include display(flex);
+            @include justify-content(center);
+            @include linear-gradient(to top right, #bf7a6b 0%, #e6d8a7 100%);
+          }
+          
+          .form {
+            width: 400px;
+          }
+          
+          .file-upload-wrapper {
+            $defaultColor: #4daf7c;
+            $height: 60px;
+            
+            position: relative;
+            width: 100%;
+            height: $height;
+            
+            &:after {
+              content: attr(data-text);
+              font-size: 18px;
+              position: absolute;
+              top: 0;
+              left: 0;
+              background: #fff;
+              padding: 10px 15px;
+              display: block;
+              width: calc(100% - 40px);
+              pointer-events: none;
+              z-index: 20;
+              height: $height - 20px;
+              line-height: $height - 20px;
+              color: #999;
+              border-radius: 5px 10px 10px 5px;
+              font-weight: 300;
+            }
+            
+            &:before {
+              content: 'Upload';
+              position: absolute;
+              top: 0;
+              right: 0;
+              display: inline-block;
+              height: 60px;
+              background: $defaultColor;
+              color: #fff;
+              font-weight: 700;
+              z-index: 25;
+              font-size: 16px;
+              line-height: $height;
+              padding: 0 15px;
+              text-transform: uppercase;
+              pointer-events: none;
+              border-radius: 0 5px 5px 0;
+            }
+            
+            &:hover {
+              &:before {
+                background: darken($defaultColor, 10%);
+              }
+            }
+             input {
+              opacity: 0;
+              position: absolute;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              left: 0;
+              z-index: 99;
+              height: $height - 20px;
+              margin: 0;
+              padding: 0;
+              display: block;
+              cursor: pointer;
+              width: 100%;
+            }
+          }
+          
+          .sprucecss {
+            align-items: flex-start;
+            background-color: hsl(0 0% 100%);
+            border-radius: 0.25rem;
+            box-shadow: 0 0 0.5rem hsl(0 0% 0% / 5%);
+            color: #444;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            inset: auto auto 1rem 1rem;
+            line-height: 1.5;
+            max-width: 11rem;
+            padding: 1.5rem;
+            position: fixed;
+            text-decoration: none;
+            
+            img {
+              height: 1.5rem;
+              width: auto;
+            }
+          }
+          */
+
+
+    </style>
+
+    <style>
+        
+    
+        .form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+    
+        .file-upload-wrapper {
+          position: relative;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+    
+        .file-upload-wrapper:before {
+          content: attr(data-text);
+          font-size: 18px;
+          background: #44f3d9;
+          padding: 10px 15px;
+          display: block;
+          width: calc(100% - 40px);
+          color: #666b6a;
+          border-radius: 5px;
+        }
+    
+        .file-upload-field {
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 99;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+      </style>
+    
+
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <!-- <a href="#" class="nav__logo">
+                    <i class="ri-leaf-line nav__logo-icon"></i> Plantex
+                </a> -->
+                <nav class="nav container">
+                    <a href="#" class="nav__logo">
+                        <img src="assets/img/favicon.png" class="nav__logo-icon"  height = "70px" width="70px">
+                        <!-- Visiqn -->
+                        <img src="assets/img/name.png" class="nav__logo-icon"  height = "170px" width="160px">
+                    </a>
+                </nav>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#home" class="nav__link active-link">Home</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#about" class="nav__link">About</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#products" class="nav__link">Products</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#faqs" class="nav__link">FAQs</a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#contact" class="nav__link">Contact Us</a>
+                        </li>
+                    </ul>
+
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
+
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-menu-line"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="main">
+            <!--==================== HOME ====================-->
+            <section class="home" id="home">
+                <div class="home__container container grid">
+                    <!-- <img src="assets/img/home.gif" alt="" class="home__img"> -->
+
+                    <div class="home__data">
+                        <h1 class="home__title">
+                            Welcome!
+                        </h1>
+                        <p class="home__description">
+                            Kindly upload the required files
+                        </p>
+                        <a href="#about" class="button button--flex">
+                            Explore <i class="ri-arrow-right-down-line button__icon"></i>
+                        </a>
+                    </div>
+
+                    <div class="home__social">
+                        <span class="home__social-follow">Follow Us</span>
+
+                        <div class="home__social-links">
+                            <a href="https://www.facebook.com/" target="_blank" class="home__social-link">
+                                <i class="ri-facebook-fill"></i>
+                            </a>
+                            <a href="https://www.instagram.com/" target="_blank" class="home__social-link">
+                                <i class="ri-instagram-line"></i>
+                            </a>
+                            <a href="https://twitter.com/" target="_blank" class="home__social-link">
+                                <i class="ri-twitter-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- <div class="container">
+                        <div class="card">
+                          <h3>Upload Files</h3>
+                          <div class="drop_box">
+                            <form action="/upload" method="post" enctype="multipart/form-data">
+                            <header>
+                              <h4>Select File here</h4>
+                            </header>
+                            <p>Files Supported: PDF, PNG, JPG , JPEG</p>
+                            <input type="file" hidden accept=".pdf,.png,.jpg,.jpeg" id="fileID" style="display:none;">
+                            <button class="btn">Choose File</button>
+                            </form>
+                          </div>
+                      
+                        </div>
+                      </div> -->
+
+                      <!-- First File Upload Section -->
+                      <div class="container">
+                        <form class="form">
+                          <div class="file-upload-wrapper" data-text="Upload Compliance Documents and Ruleset">
+                            <input name="file-upload-field" type="file" class="file-upload-field" value="">
+                          </div>
+                        </form>
+                      
+                        <!-- Second File Upload Section -->
+                        <form class="form">
+                          <div class="file-upload-wrapper" data-text="Upload Logs and System Policies">
+                            <input name="file-upload-field" type="file" class="file-upload-field" value="">
+                          </div>
+                        </form>
+                      
+                        <!-- Third File Upload Section -->
+                        <form class="form">
+                          <div class="file-upload-wrapper" data-text="Upload Known Failures and Anomalies">
+                            <input name="file-upload-field" type="file" class="file-upload-field" value="">
+                          </div>
+                        </form>
+                      </div>
+                      
+                </div>
+            </section>
+
+            <!--==================== ABOUT ====================-->
+    <!-- Add this div to display the classification result -->
+    <div id="classification-result" class="classification-result"></div>
+
+    <!-- <section class="steps section container">
+        <div class="steps__bg">
+            <h2 class="section__title-center steps__title">
+                We endeavour <br> to provide best solutions
+            </h2>
+
+            <div class="steps__container grid"> -->
+                <!-- Display classification result here -->
+                <!-- <div class="steps__card">
+                    <div class="steps__card-number">01</div>
+                    <h3 class="steps__card-title">Diabetic Retinopathy Grade</h3>
+                    <p class="steps__card-description" id="grade">Moderate</p>
+                </div>
+
+                <div class="steps__card">
+                    <div class="steps__card-number">02</div>
+                    <h3 class="steps__card-title">Confidence Score</h3>
+                    <p class="steps__card-description" id="confidence">85%</p>
+                </div>
+
+                <div class="steps__card">
+                    <div class="steps__card-number">03</div>
+                    <h3 class="steps__card-title">Visual Explanation</h3>
+                    <canvas id="heatmap"></canvas> Add your visual explanation heatmap here -->
+                <!-- </div>
+
+                <div class="steps__card">
+                    <div class="steps__card-number">04</div>
+                    <h3 class="steps__card-title">Recommendation</h3>
+                    <p class="steps__card-description" id="recommendation">Consult a specialist</p>
+                </div>
+
+                <div class="steps__card">
+                    <div class="steps__card-number">05</div>
+                    <h3 class="steps__card-title">Find Nearby Specialist</h3>
+                    <button class="button button--flex" id="findSpecialistBtn">
+                        Find Specialist
+                        <i class="ri-arrow-right-line button__icon"></i>
+                    </button>
+                </div>
+
+                <div class="steps__card">
+                    <div class="steps__card-number">06</div>
+                    <h3 class="steps__card-title">Download PDF Report</h3>
+                    <button class="button button--flex" id="downloadPdfBtn">
+                        Download PDF
+                        <i class="ri-download-2-line button__icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section> --> 
+
+    <!-- ... (your footer and other sections remain unchanged) ... -->
+
+    <section class="steps section container">
+        <div class="steps__bg">
+            <h2 class="section__title-center steps__title">
+                Compliance Monitoring and Enforcement Results
+            </h2>
+    
+            <div class="steps__container grid">
+                <!-- Display compliance breach details here -->
+                <div class="steps__card">
+                    <div class="steps__card-number">01</div>
+                    <h3 class="steps__card-title">Compliance Breach Details</h3>
+                    <p class="steps__card-description" id="complianceBreachDetails">Details will be shown here</p>
+                </div>
+    
+                <!-- Display citations to specific line/log/file/UserID here -->
+                <div class="steps__card">
+                    <div class="steps__card-number">02</div>
+                    <h3 class="steps__card-title">Citations to Specific Line/Log/File/UserID</h3>
+                    <p class="steps__card-description" id="citations">Citations will be shown here</p>
+                </div>
+    
+                <!-- Display actionable insights and recommendations here -->
+                <div class="steps__card">
+                    <div class="steps__card-number">03</div>
+                    <h3 class="steps__card-title">Actionable Insights and Recommendations</h3>
+                    <p class="steps__card-description" id="actionableInsights">Insights will be shown here</p>
+                </div>
+    
+                <!-- Display visual representations (optional) here -->
+                <div class="steps__card">
+                    <div class="steps__card-number">04</div>
+                    <h3 class="steps__card-title">Visual Representations (Optional)</h3>
+                    <canvas id="visualRepresentation"></canvas> <!-- Add your visual representation here -->
+                </div>
+    
+                <!-- Display overall compliance report here -->
+                <div class="steps__card">
+                    <div class="steps__card-number">05</div>
+                    <h3 class="steps__card-title">Overall Compliance Report</h3>
+                    <p class="steps__card-description" id="complianceReport">Report will be shown here</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+        // Example output data from the backend
+        const outputData = {
+            complianceBreachDetails: "Sample breach details",
+            citations: "Sample citations",
+            actionableInsights: "Sample insights",
+            // ... other output data
+        };
+
+        // Function to update card contents
+        function updateCardContents() {
+            // Update compliance breach details card
+            document.getElementById("complianceBreachDetails").textContent = outputData.complianceBreachDetails;
+
+            // Update citations card
+            document.getElementById("citations").textContent = outputData.citations;
+
+            // Update actionable insights card
+            document.getElementById("actionableInsights").textContent = outputData.actionableInsights;
+
+            // Example: Update visual representation (canvas)
+            const canvas = document.getElementById("visualRepresentation");
+            const ctx = canvas.getContext("2d");
+            // ... draw on the canvas based on your visual representation data
+
+            // Update overall compliance report card
+            document.getElementById("complianceReport").textContent = "Overall compliance report will be shown here";
+        }
+
+        // Call the function to update card contents when the page loads
+        window.onload = function() {
+            updateCardContents();
+        };
+        
+    </script>
+    
+    <!-- <script>
+        // Get the classification result from the Flask template
+        const classificationResult = {{ result | tojson | safe }};
+
+        // Display the classification result on the page
+        document.getElementById('grade').textContent = classificationResult.grade;
+        document.getElementById('confidence').textContent = classificationResult.confidence + '%';
+        
+        // Set recommendation based on confidence score
+        const recommendation = classificationResult.confidence >= 80 ? 'Consult a specialist' : 'Monitor regularly';
+        document.getElementById('recommendation').textContent = recommendation;
+
+        // Create heatmap using Chart.js (replace with actual heatmap data)
+        const ctx = document.getElementById('heatmap').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: classificationResult.heatmapData, // Replace with your actual heatmap data
+            options: {
+                responsive: true,
+                legend: { display: false },
+                scales: {
+                    yAxes: [{
+                        ticks: { beginAtZero: true },
+                    }],
+                },
+            },
+        });
+
+        // Add click event listeners for buttons
+        const findSpecialistBtn = document.getElementById('findSpecialistBtn');
+        findSpecialistBtn.addEventListener('click', () => {
+            // Code to handle finding nearby specialists
+            // Add markers on map, etc.
+            const contactUsSection = document.getElementById('contact');
+            contactUsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+        downloadPdfBtn.addEventListener('click', () => {
+            // Code to generate and download PDF report
+            // Add content to the PDF (e.g., classification result, recommendations)
+            // Save the PDF with the specified filename
+        });
+    </script> -->
+
+            <!--==================== QUESTIONS ====================-->
+            <section class="questions section" id="faqs">
+                <h2 class="section__title-center questions__title container">
+                    Some common questions <br> were often asked
+                </h2>
+
+                <div class="questions__container container grid">
+                    <div class="questions__group">
+                        <div class="questions__item">
+                            <header class="questions__header">
+                                <i class="ri-add-line questions__icon"></i>
+                                <h3 class="questions__item-title">
+                                    How does the proposed system identify compliance breaches?
+                                </h3>
+                            </header>
+
+                            <div class="questions__content">
+                                <p class="questions__description">
+                                    The system utilizes large language models like ChatGPT to analyze 
+                                    logs, system configurations, access controls, and user privileges. 
+                                    By comparing these data against predefined compliance rules and standards, 
+                                    the system identifies non-compliant activities. It provides citations to 
+                                    specific lines/log files/user IDs for each detected breach.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="questions__item">
+                            <header class="questions__header">
+                                <i class="ri-add-line questions__icon"></i>
+                                <h3 class="questions__item-title">
+                                    How does the system handle various log formats and compliance standards?
+                                </h3>
+                            </header>
+
+                            <div class="questions__content">
+                                <p class="questions__description">
+                                    The system is designed with flexibility in mind. It can handle various log 
+                                    formats such as CSV, text, and PDF. It can also adapt to different compliance 
+                                    rule sets and standards. This adaptability ensures the system can function 
+                                    effectively in diverse environments and configurations.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="questions__item">
+                            <header class="questions__header">
+                                <i class="ri-add-line questions__icon"></i>
+                                <h3 class="questions__item-title">
+                                    What are actionable insights, and how does the system provide them?
+                                </h3>
+                            </header>
+
+                            <div class="questions__content">
+                                <p class="questions__description">
+                                    Actionable insights are practical suggestions for remediation when compliance 
+                                    breaches are identified. The system not only points out non-compliance issues but 
+                                    also suggests ways to fix them. These insights are relevant and useful, aiding 
+                                    administrators in addressing security gaps effectively.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="questions__group">
+                        <div class="questions__item">
+                            <header class="questions__header">
+                                <i class="ri-add-line questions__icon"></i>
+                                <h3 class="questions__item-title">
+                                    How does the system ensure high accuracy and minimize false positives/negatives?
+                                </h3>
+                            </header>
+
+                            <div class="questions__content">
+                                <p class="questions__description">
+                                    The system aims for high accuracy by leveraging the power of large language models. 
+                                    It utilizes machine learning techniques to identify compliance breaches while minimizing 
+                                    false positives (incorrectly flagging compliant activities) and false negatives (missing 
+                                    actual breaches). This balanced approach ensures reliable breach detection.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="questions__item">
+                            <header class="questions__header">
+                                <i class="ri-add-line questions__icon"></i>
+                                <h3 class="questions__item-title">
+                                    Can the system adapt to new compliance rules and changes in standards?
+                                </h3>
+                            </header>
+
+                            <div class="questions__content">
+                                <p class="questions__description">
+                                    Yes, the system is designed to be adaptable. It can learn from new rules and 
+                                    updates to compliance standards. It also incorporates user feedback for continuous 
+                                    improvement without the need for system restarts. This adaptability ensures that the 
+                                    system remains effective even as compliance requirements evolve.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="questions__item">
+                            <header class="questions__header">
+                                <i class="ri-add-line questions__icon"></i>
+                                <h3 class="questions__item-title">
+                                    Can you elaborate on the system's ability to handle increasing volumes of data and its scalability?
+                                </h3>
+                            </header>
+
+                            <div class="questions__content">
+                                <p class="questions__description">
+                                    The system's architecture is designed to efficiently manage large volumes of logs and text data. 
+                                    By leveraging the power of open-source large language models, it can scale to accommodate the growing 
+                                    data needs of Flipkart. This scalability ensures that as the company's data and systems expand, the 
+                                    compliance monitoring and enforcement system remains capable of effectively analyzing logs, identifying 
+                                    breaches, and generating actionable insights without compromising performance.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--==================== CONTACT ====================-->
+            <section class="contact section container" id="contact">                
+                <div class="contact__container grid">
+                    <div class="contact__box">
+                        <h2 class="section__title">
+                            Reach out to us today <br> via any of the given <br> information
+                        </h2>
+
+                        <div class="contact__data">
+                            <div class="contact__information">
+                                <h3 class="contact__subtitle">Call us for instant support</h3>
+                                <span class="contact__description">
+                                    <i class="ri-phone-line contact__icon"></i>
+                                    +999 888 777
+                                </span>
+                            </div>
+
+                            <div class="contact__information">
+                                <h3 class="contact__subtitle">Write us by mail</h3>
+                                <span class="contact__description">
+                                    <i class="ri-mail-line contact__icon"></i>
+                                    vitchennai@gmail.com
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action="" class="contact__form">
+                        <div class="contact__inputs">
+                            <div class="contact__content">
+                                <input type="email" placeholder=" " class="contact__input">
+                                <label for="" class="contact__label">Email</label>
+                            </div>
+
+                            <div class="contact__content">
+                                <input type="text" placeholder=" " class="contact__input">
+                                <label for="" class="contact__label">Subject</label>
+                            </div>
+
+                            <div class="contact__content contact__area">
+                                <textarea name="message" placeholder=" " class="contact__input"></textarea>                              
+                                <label for="" class="contact__label">Message</label>
+                            </div>
+                        </div>
+
+                        <button class="button button--flex">
+                            Send Message
+                            <i class="ri-arrow-right-up-line button__icon"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!--==================== FOOTER ====================-->
+        <footer class="footer section">
+            <div class="footer__container container grid">
+                <div class="footer__content">
+                    <a href="#" class="footer__logo">
+                        <img src="assets/img/favicon.png" class="nav__logo-icon"  height = "70px" width="70px">
+                        <!-- Visiqn -->
+                        <img src="assets/img/name.png" class="nav__logo-icon"  height = "170px" width="160px">
+                    </a>
+
+                    <h3 class="footer__title">
+                        Subscribe to our newsletter <br> to stay update
+                    </h3>
+
+                    <div class="footer__subscribe">
+                        <input type="email" placeholder="Enter your email" class="footer__input">
+
+                        <button class="button button--flex footer__button">
+                            Subscribe
+                            <i class="ri-arrow-right-up-line button__icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Our Address</h3>
+
+                    <ul class="footer__data">
+                        <li class="footer__information">Vellore Institute of Technology</li>
+                        <li class="footer__information">Chennai, Tamil Nadu</li>
+                        <li class="footer__information">123-456-789</li>
+                    </ul>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">Contact Us</h3>
+
+                    <ul class="footer__data">
+                        <li class="footer__information">+999 888 777</li>
+                        
+                        <div class="footer__social">
+                            <a href="https://www.facebook.com/" class="footer__social-link">
+                                <i class="ri-facebook-fill"></i>
+                            </a>
+                            <a href="https://www.instagram.com/" class="footer__social-link">
+                                <i class="ri-instagram-line"></i>
+                            </a>
+                            <a href="https://twitter.com/" class="footer__social-link">
+                                <i class="ri-twitter-fill"></i>
+                            </a>
+                        </div>
+                    </ul>
+                </div>
+
+                <div class="footer__content">
+                    <h3 class="footer__title">
+                        We accept all credit cards
+                    </h3>
+
+                    <div class="footer__cards">
+                        <img src="assets/img/card1.png" alt="" class="footer__card">
+                        <img src="assets/img/card2.png" alt="" class="footer__card">
+                        <img src="assets/img/card3.png" alt="" class="footer__card">
+                        <img src="assets/img/card4.png" alt="" class="footer__card">
+                    </div>
+                </div>
+            </div>
+
+            <p class="footer__copy">&#169; Intelog. All rigths reserved</p>
+        </footer>
+        
+        <!--=============== SCROLL UP ===============-->
+        <a href="#" class="scrollup" id="scroll-up"> 
+            <i class="ri-arrow-up-fill scrollup__icon"></i>
+        </a>
+
+        <!--=============== SCROLL REVEAL ===============-->
+        <script src="assets/js/scrollreveal.min.js"></script>
+        
+        <!--=============== MAIN JS ===============-->
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>
